@@ -11,7 +11,7 @@ namespace Core.IoC
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Map>().As<IMap>();
+            builder.RegisterType<Map>().As<IMap>().As<Map>();
         }
     }
 }

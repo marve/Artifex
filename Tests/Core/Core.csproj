@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IElement.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="IoC\AutofacModule.cs" />
     <Compile Include="Map.cs" />

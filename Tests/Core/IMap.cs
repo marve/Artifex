@@ -10,5 +10,11 @@ namespace Core
         int Width { get; }
 
         int Height { get; }
+
+        void Add(IElement element);
+
+        void Remove(IElement element);
+
+        IReadOnlyList<IElement> Elements { get; }
     }
 }
