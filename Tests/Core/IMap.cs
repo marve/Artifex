@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +8,6 @@ namespace Core
 {
     public interface IMap
     {
-        int Width { get; }
-
-        int Height { get; }
-
-        void Add(IElement element);
-
-        void Remove(IElement element);
-
-        IReadOnlyList<IElement> Elements { get; }
+        QuadLinkedList<Parcel> Parcels { get; }
     }
 }

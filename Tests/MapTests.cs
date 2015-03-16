@@ -8,42 +8,27 @@ using Xunit;
 using Xunit.Ioc;
 using Core;
 using NSubstitute;
+using Core.DataStructures;
 
 namespace Tests
 {
-    [RunWith(typeof(IocTestClassCommand))]
-    [DependencyResolverBootstrapper(typeof(AutofacTestBootstrapper))]
     public class MapTests
     {
-        private readonly Map _map;
-        
-        public MapTests(Map map)
+        [Fact]
+        public void MapCannotBeEmpty()
         {
-            _map = map;
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Map(null));
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => new Map(new QuadLinkedList<Parcel>(new Parcel[][] { new Parcel[] { } }))
+            );
         }
 
         [Fact]
-        public void MapHasPositiveDimensions()
+        public void MapWithOneParcelHasOneElement()
         {
-            Assert.True(_map.Width > 0);
-            Assert.True(_map.Height > 0);
-        }
-
-        [Fact]
-        public void MapCanHostElement()
-        {
-            IElement element = Substitute.For<IElement>();
-            _map.Add(element);
-            Assert.Equal(1, _map.Elements.Count);
-        }
-
-        [Fact]
-        public void MapCanRemoveElement()
-        {
-            IElement element = Substitute.For<IElement>();
-            _map.Add(element);
-            _map.Remove(element);
-            Assert.Equal(0, _map.Elements.Count);
+            Map map = new Map(new QuadLinkedList<Parcel>(new Parcel[][] { new Parcel[] { new Parcel() } }));
+            Assert.Equal(1, map.Parcels.Count);
+            Assert.NotNull(map.Parcels.First);
         }
     }
 }

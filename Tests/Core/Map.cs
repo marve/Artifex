@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,41 +9,24 @@ namespace Core
 {
     public class Map : IMap
     {
-        private const int WIDTH = 100;
-        private const int HEIGHT = 100;
+        private readonly QuadLinkedList<Parcel> _parcels;
 
-        private readonly List<IElement> _elements;
-        private readonly ReadOnlyCollection<IElement> _elementsReadOnly;
-
-        public int Width
+        public QuadLinkedList<Parcel> Parcels
         {
-            get { return WIDTH; }
+            get { return _parcels; }
         }
 
-        public int Height
+        // TODO: Should take a collection of Parcel. IElement should be a higher level. A map
+        // contains parcels and each parcel is the same size as any other parcel. A parcel 
+        // contains an element but that element may span multiple parcels. A parcel should know
+        // what it's neighboring parcels (north, south, east, west) are.
+        public Map(QuadLinkedList<Parcel> parcels)
         {
-            get { return HEIGHT; }
-        }
-
-        public IReadOnlyList<IElement> Elements
-        {
-            get { return _elementsReadOnly; }
-        }
-
-        public Map()
-        {
-            _elements = new List<IElement>();
-            _elementsReadOnly = _elements.AsReadOnly();
-        }
-
-        public void Add(IElement element)
-        {
-            _elements.Add(element);
-        }
-
-        public void Remove(IElement element)
-        {
-            _elements.Remove(element);
+            if (parcels == null || parcels.Count <= 0)
+            {
+                throw new ArgumentOutOfRangeException("Must have at least one parcel in a map.");
+            }
+            _parcels = parcels;
         }
     }
 }
