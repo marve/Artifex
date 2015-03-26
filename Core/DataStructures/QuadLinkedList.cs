@@ -65,13 +65,13 @@ namespace Core.DataStructures
             // row should never be null, but above might.
             for (int i = 0; i < row.Length; i++)
             {
-                QuadLinkedListElement<T> north = null;
+                QuadLinkedListElement<T> west = previous;
+                QuadLinkedListElement<T> current = new QuadLinkedListElement<T>(row[i], west: west);
                 if (rowAbove != null)
                 {
-                    north = rowAbove[i];
+                    current.North = rowAbove[i];
+                    rowAbove[i].South = current;
                 }
-                QuadLinkedListElement<T> west = previous;
-                QuadLinkedListElement<T> current = new QuadLinkedListElement<T>(row[i], north: north, west: west);
                 if (previous != null)
                 {
                     previous.East = current;
@@ -81,7 +81,5 @@ namespace Core.DataStructures
             }
             return currentRow;
         }
-
-        
     }
 }

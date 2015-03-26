@@ -9,6 +9,7 @@ using Xunit.Ioc;
 using Core;
 using NSubstitute;
 using Core.DataStructures;
+using Xunit.Extensions;
 
 namespace Tests
 {
@@ -26,9 +27,11 @@ namespace Tests
         [Fact]
         public void MapWithOneParcelHasOneElement()
         {
-            Map map = new Map(new QuadLinkedList<Parcel>(new Parcel[][] { new Parcel[] { new Parcel() } }));
+            Map map = new Map(new QuadLinkedList<Parcel>(new Parcel[][] { new Parcel[] { Substitute.For<Parcel>() } }));
             Assert.Equal(1, map.Parcels.Count);
             Assert.NotNull(map.Parcels.First);
         }
+
+        
     }
 }

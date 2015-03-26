@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public class Parcel
+    public abstract class Parcel
     {
         
     }
