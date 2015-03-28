@@ -13,7 +13,7 @@ namespace ConsoleTestHarness
         public static void Main(string[] args)
         {
             Console.ReadLine();
-            QuadLinkedList<Fancy> quadLinkedList = new QuadLinkedList<Fancy>(GenerateElements(10, 10));
+            QuadLinkedList<Fancy> quadLinkedList = new QuadLinkedList<Fancy>(GenerateElements(10000, 10000));
             Console.ReadLine();
         }
 

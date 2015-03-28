@@ -1,13 +1,8 @@
-﻿using System;
+﻿using Core.DataStructures;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NSubstitute;
-using Xunit.Extensions;
-using Core.DataStructures;
-using Functional.Option;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Tests.DataStructures
 {
@@ -24,9 +19,7 @@ namespace Tests.DataStructures
         [InlineData(75, 105)]
         public void QuadLinkedListCanTraverseWestEastNorthSouthWithoutHittingSameReferenceTwice(int rows, int columns)
         {
-            System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
             QuadLinkedList<Phony> list = new QuadLinkedList<Phony>(GenerateElements(rows, columns));
-            stopwatch.Stop();
             IList<Phony> elements = Traverse(list.First).ToList();
             Assert.Equal(rows * columns, elements.Count);
             foreach (Phony element in elements)
@@ -35,18 +28,18 @@ namespace Tests.DataStructures
             }
         }
 
-        private List<Phony> Traverse(Option<IQuadLinkedListElement<Phony>> element)
+        private List<Phony> Traverse(IQuadLinkedListElement<Phony> element)
         {
             List<Phony> values = new List<Phony>();
-            element.Match(Some: value =>
+            if (element != null)
             {
-                values.Add(value.Value);
-                if (!value.North.HasValue)
+                values.Add(element.Value);
+                if (element.North == null)
                 {
-                    values.AddRange(Traverse(value.East));
+                    values.AddRange(Traverse(element.East));
                 }
-                values.AddRange(Traverse(value.South));
-            });
+                values.AddRange(Traverse(element.South));
+            }
             return values;
         }
 

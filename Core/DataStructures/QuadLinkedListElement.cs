@@ -1,10 +1,4 @@
-﻿using Functional.Option;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.Contracts;
 
 namespace Core.DataStructures
 {
@@ -16,10 +10,10 @@ namespace Core.DataStructures
         {
             get { return _value; }
         }
-        public Option<IQuadLinkedListElement<T>> North { get; set; }
-        public Option<IQuadLinkedListElement<T>> East { get; set; }
-        public Option<IQuadLinkedListElement<T>> South { get; set; }
-        public Option<IQuadLinkedListElement<T>> West { get; set; }
+        public IQuadLinkedListElement<T> North { get; set; }
+        public IQuadLinkedListElement<T> East { get; set; }
+        public IQuadLinkedListElement<T> South { get; set; }
+        public IQuadLinkedListElement<T> West { get; set; }
 
         public QuadLinkedListElement(
             T value,

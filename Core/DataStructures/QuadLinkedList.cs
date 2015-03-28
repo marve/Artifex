@@ -1,22 +1,19 @@
-﻿using Functional.Option;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.DataStructures
 {
     public class QuadLinkedList<T>
     {
-        private readonly Option<IQuadLinkedListElement<T>> _first;
+        private readonly IQuadLinkedListElement<T> _first;
         private readonly int _count;
 
         /// <summary>
         /// The north-west most element.
         /// </summary>
-        public Option<IQuadLinkedListElement<T>> First
+        public IQuadLinkedListElement<T> First
         {
             get { return _first; }
         }
@@ -46,14 +43,17 @@ namespace Core.DataStructures
             _count = rows.Length * rows[0].Length;
         }
 
-        private Option<IQuadLinkedListElement<T>> BuildRows(T[][] rows)
+        private IQuadLinkedListElement<T> BuildRows(T[][] rows)
         {
-            Option<IQuadLinkedListElement<T>> first = new Option<IQuadLinkedListElement<T>>();
+            IQuadLinkedListElement<T> first = null;
             QuadLinkedListElement<T>[] previousRow = null;
             foreach (T[] row in rows)
             {
                 previousRow = BuildRow(previousRow, row);
-                first.Match(None: () => first = previousRow.First());
+                if (first == null)
+                {
+                    first = previousRow.First();
+                }
             }
             return first;
         }
