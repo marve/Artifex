@@ -17,7 +17,6 @@ namespace Tests.DataStructures
         [InlineData(1, 1)]
         [InlineData(10, 10)]
         [InlineData(100, 100)]
-        //[InlineData(1000, 1000)]
         [InlineData(3, 7)]
         [InlineData(4, 8)]
         [InlineData(9, 9)]

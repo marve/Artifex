@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Core.DataStructures
 {
-    public class QuadLinkedListElement<T> : IQuadLinkedListElement<T>, IEquatable<QuadLinkedListElement<T>>
+    public class QuadLinkedListElement<T> : IQuadLinkedListElement<T>
     {
-        private readonly Guid _id = Guid.NewGuid();
         private readonly T _value;
 
         public T Value
@@ -24,36 +23,11 @@ namespace Core.DataStructures
 
         public QuadLinkedListElement(
             T value,
-            QuadLinkedListElement<T> north = null,
-            QuadLinkedListElement<T> east = null,
-            QuadLinkedListElement<T> south = null,
-            QuadLinkedListElement<T> west = null)
+            QuadLinkedListElement<T> west)
         {
             Contract.Requires(value != null);
             _value = value;
-            North = north;
-            East = east;
-            South = south;
             West = west;
-        }
-
-        public bool Equals(QuadLinkedListElement<T> other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-            return other._id.Equals(_id);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as QuadLinkedListElement<T>);
-        }
-
-        public override int GetHashCode()
-        {
-            return _id.GetHashCode();
         }
     }
 }
